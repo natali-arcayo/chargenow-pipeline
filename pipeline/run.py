@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from pipeline.sources import TweetSource
 from pipeline.storage import save_raw
 from pipeline.transform import transform_day
+from pipeline.registry import record
 
 
 def run(first_day: date, last_day: date, mode: str, source: TweetSource) -> None:
@@ -32,7 +33,9 @@ def run(first_day: date, last_day: date, mode: str, source: TweetSource) -> None
             else:
                 status = "empty"
             print(f"{day}: {status} ({rows} rows)")
+            record(run_id, day, mode, status, rows, None)
+            
         except Exception as error:
             print(f"{day}: failed - {error}")
-
+            record(run_id, day, mode, "failed", None, str(error))
         day = day + timedelta(days=1)

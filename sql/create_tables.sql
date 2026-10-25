@@ -10,3 +10,12 @@ CREATE TABLE IF NOT EXISTS curated_tweets (
     hashtags            VARCHAR[],
     is_retweet          BOOLEAN
 );
+CREATE TABLE IF NOT EXISTS run_registry (
+    run_id         VARCHAR,
+    run_date       DATE,
+    mode           VARCHAR,
+    status         VARCHAR,
+    rows_loaded    BIGINT,
+    finished_at    TIMESTAMPTZ,
+    error_message  VARCHAR
+);
