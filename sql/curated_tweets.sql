@@ -4,7 +4,7 @@
 WITH raw AS (
     SELECT response
     FROM read_json(
-        'data/raw/date=2026-10-20/response.json',
+        '{raw_path}',
         columns = {
             response: 'STRUCT(
                 data STRUCT(
@@ -47,6 +47,8 @@ users AS (
 )
 
 SELECT
+    $day     AS day,
+    $run_id  AS run_id,
     tweets.tweet_id,
     sha256($anon_key || tweets.author_id) AS anonymized_user_id,
     tweets.created_at,
@@ -57,4 +59,4 @@ SELECT
     coalesce(list_contains(list_transform(tweets.referenced_tweets, lambda r: r."type"), 'retweeted'), false) AS is_retweet
 FROM tweets
 LEFT JOIN users ON users.user_id = tweets.author_id
-ORDER BY tweets.created_at;
+ORDER BY tweets.created_at
