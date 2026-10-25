@@ -4,7 +4,7 @@
 WITH raw AS (
     SELECT response
     FROM read_json(
-        'data/raw/date=2026-10-21/response.json',
+        'data/raw/date=2026-10-20/response.json',
         columns = {
             response: 'STRUCT(
                 data STRUCT(
@@ -48,7 +48,7 @@ users AS (
 
 SELECT
     tweets.tweet_id,
-    tweets.author_id,   -- pending: replace with the anonymized id (hash)
+    sha256($anon_key || tweets.author_id) AS anonymized_user_id,
     tweets.created_at,
     users.location,
     users.follower_count,
