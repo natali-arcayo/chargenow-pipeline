@@ -9,6 +9,9 @@ DB_FILE = "data/curated.duckdb"
 def transform_day(day: date, run_id: str, anon_key: str) -> int:
     """Rebuild the curated rows of one day from its raw file. Returns the rows loaded."""
     raw_file = Path("data/raw") / f"date={day}" / "response.json"
+    if not raw_file.exists():
+        raise FileNotFoundError(f"No raw data for {day}")
+    
     query = Path("sql/curated_tweets.sql").read_text(encoding="utf-8")
     query = query.replace("{raw_path}", str(raw_file))
     params = {"day": day, "run_id": run_id, "anon_key": anon_key}
@@ -18,7 +21,7 @@ def transform_day(day: date, run_id: str, anon_key: str) -> int:
         con.execute("SET TimeZone = 'UTC'")
         con.execute(Path("sql/create_tables.sql").read_text(encoding="utf-8"))
 
-        # Validation: every tweet must have its required fields
+        # Validation: every tweet must have the mandatory fields
         missing = con.execute(
             f"SELECT count(*) FROM (\n{query}\n) "
             "WHERE tweet_id IS NULL OR created_at IS NULL OR anonymized_user_id IS NULL",

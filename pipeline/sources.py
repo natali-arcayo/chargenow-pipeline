@@ -35,7 +35,7 @@ class MockSource(TweetSource):
         file_path = self.fixtures_dir / f"{start:%Y-%m-%d}.json"
 
         if not file_path.exists():
-            raise SourcePermanentError(f"No fixture file for {start:%Y-%m-%d}: {file_path}")
+            raise SourcePermanentError(f"No fixture file for {start:%Y-%m-%d}")
 
         with open(file_path, encoding="utf-8") as f:
             return json.load(f)
