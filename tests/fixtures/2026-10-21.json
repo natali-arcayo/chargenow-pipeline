@@ -1,0 +1,59 @@
+{
+  "data": [
+    {
+      "id": "1849004000000000001",
+      "text": "Morning charge before work #ChargeNow",
+      "created_at": "2026-10-21T06:40:00.000Z",
+      "author_id": "3300000001",
+      "edit_history_tweet_ids": ["1849004000000000001"],
+      "entities": {
+        "hashtags": [
+          {"start": 27, "end": 37, "tag": "ChargeNow"}
+        ]
+      }
+    },
+    {
+      "id": "1849004000000000002",
+      "text": "Which app works best with #ChargeNow cards?",
+      "created_at": "2026-10-21T17:05:00.000Z",
+      "author_id": "3300000002",
+      "edit_history_tweet_ids": ["1849004000000000002"],
+      "entities": {
+        "hashtags": [
+          {"start": 26, "end": 36, "tag": "ChargeNow"}
+        ]
+      }
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "id": "3300000001",
+        "name": "Mara",
+        "username": "mara_rides",
+        "public_metrics": {
+          "followers_count": 58,
+          "following_count": 120,
+          "tweet_count": 430,
+          "listed_count": 0
+        }
+      },
+      {
+        "id": "3300000002",
+        "name": "Jonas",
+        "username": "jonas_kw",
+        "public_metrics": {
+          "followers_count": 912,
+          "following_count": 301,
+          "tweet_count": 3105,
+          "listed_count": 4
+        }
+      }
+    ]
+  },
+  "meta": {
+    "newest_id": "1849004000000000002",
+    "oldest_id": "1849004000000000001",
+    "result_count": 2
+  }
+}
