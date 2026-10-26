@@ -14,6 +14,7 @@ from pipeline.transform import transform_day
 
 WAIT_SECONDS = [2, 4]  # waits between attempts: 3 attempts in total
 
+
 def setup_logging(run_id: str) -> None:
     """Log to the console and to logs/<run_id>.log, with times in UTC."""
     Path("logs").mkdir(exist_ok=True)
@@ -28,6 +29,7 @@ def setup_logging(run_id: str) -> None:
         ],
     )
 
+
 def fetch_with_retries(source: TweetSource, start: datetime, end: datetime) -> dict:
     """Call source.fetch; on a temporary error, wait and try again."""
     for wait in WAIT_SECONDS:
@@ -37,6 +39,7 @@ def fetch_with_retries(source: TweetSource, start: datetime, end: datetime) -> d
             logging.warning(f"Source unavailable: {error}. Retrying in {wait} s")
             time.sleep(wait)
     return source.fetch(start, end)  # last attempt: if it fails, the error goes up to run()
+
 
 def run(first_day: date, last_day: date, mode: str, source: TweetSource) -> None:
     """Process every UTC day from first_day to last_day (both included)."""
