@@ -19,10 +19,11 @@ class SourcePermanentError(SourceError):
 
 
 class TweetSource(ABC):
+    """Contract every tweet source must follow (mock today, real X API later)."""
+
     @abstractmethod
     def fetch(self, start: datetime, end: datetime) -> dict:
-        """Return the tweets between start (included) and end (excluded),
-        with the same structure as the X API v2 response."""
+        """Return the API response for the window [start, end) as a dict in X API v2 structure."""
 
 
 class MockSource(TweetSource):

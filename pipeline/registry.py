@@ -1,3 +1,5 @@
+"""Run registry: one row per day per run."""
+
 from datetime import date, datetime, timezone
 from pathlib import Path
 

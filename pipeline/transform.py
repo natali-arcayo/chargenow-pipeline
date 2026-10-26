@@ -1,6 +1,9 @@
+"""Raw to curated: validate one day and replace it in DuckDB."""
+
+import logging
 from datetime import date
 from pathlib import Path
-import logging
+
 import duckdb
 
 DB_FILE = "data/curated.duckdb"
@@ -41,7 +44,9 @@ def transform_day(day: date, run_id: str, anon_key: str) -> int:
             )
         con.execute("COMMIT")
         
-        # A NULL follower_count means there is no user information
+        # A NULL follower_count means the author from includes.users was missing:
+        # curated does not have includes.users.id (only the hash of data.author_id),
+        # since location is optional, only follower_count or tweet_count can be used.        
         missing_user_row_count = con.execute(
             "SELECT count(*) FROM curated_tweets WHERE day = ? AND follower_count IS NULL", [day]
             ).fetchone()[0]

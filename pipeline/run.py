@@ -1,3 +1,5 @@
+"""Run the pipeline day by day: fetch, save raw, transform, record."""
+
 import logging
 import os
 import time
@@ -46,6 +48,7 @@ def run(first_day: date, last_day: date, mode: str, source: TweetSource) -> None
     if mode not in ("full", "reprocess"):
         raise ValueError(f"Unknown mode: {mode}")
 
+    # run_id = UTC start time (e.g. 20261026T095545Z): one per run, sortable, readable in logs and registry
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     setup_logging(run_id)
     # The run id goes in this first message as the console doesn't show the log file name
