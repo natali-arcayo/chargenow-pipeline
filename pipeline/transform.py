@@ -1,6 +1,6 @@
 from datetime import date
 from pathlib import Path
-
+import logging
 import duckdb
 
 DB_FILE = "data/curated.duckdb"
@@ -22,13 +22,13 @@ def transform_day(day: date, run_id: str, anon_key: str) -> int:
         con.execute(Path("sql/create_tables.sql").read_text(encoding="utf-8"))
 
         # Validation: every tweet must have the mandatory fields
-        missing = con.execute(
+        not_valid_row_count = con.execute(
             f"SELECT count(*) FROM (\n{query}\n) "
             "WHERE tweet_id IS NULL OR created_at IS NULL OR anonymized_user_id IS NULL",
             params
             ).fetchone()[0]
-        if missing > 0:
-            raise ValueError(f"{missing} tweets with missing required fields on {day}")
+        if not_valid_row_count > 0:
+            raise ValueError(f"{not_valid_row_count} tweets with missing required fields on {day}")
 
         # Replace the day: all or nothing
         con.execute("BEGIN TRANSACTION")
@@ -38,8 +38,15 @@ def transform_day(day: date, run_id: str, anon_key: str) -> int:
             "(day, run_id, tweet_id, anonymized_user_id, created_at, location, follower_count, tweet_count, hashtags, is_retweet) "
             f"SELECT * FROM (\n{query}\n)",
             params
-        )
+            )
         con.execute("COMMIT")
+        
+        # A NULL follower_count means there is no user information
+        missing_user_row_count = con.execute(
+            "SELECT count(*) FROM curated_tweets WHERE day = ? AND follower_count IS NULL", [day]
+            ).fetchone()[0]
+        if missing_user_row_count > 0:
+            logging.warning(f"{day}: {missing_user_row_count} tweets without user data (kept with NULL user fields)")
 
         return con.execute("SELECT count(*) FROM curated_tweets WHERE day = ?", [day]).fetchone()[0]
     finally:
