@@ -25,6 +25,24 @@ Copy each command without its `# …` comment: zsh (the macOS default shell) doe
 
 Days are UTC and both included. Logs go to the console and `logs/<run_id>.log`.
 
+## Project structure
+
+```
+pipeline/
+  cli.py          command-line entry point
+  run.py          day-by-day loop: fetch (with retries), save raw, transform, record; logging
+  sources.py      TweetSource contract, MockSource, source error types
+  storage.py      raw layer: one JSON file per day
+  transform.py    raw → curated: validation and overwrite of the day in DuckDB
+  registry.py     run registry
+sql/
+  create_tables.sql     curated_tweets and run_registry
+  curated_tweets.sql    the raw → curated transformation
+tests/
+  test_pipeline.py
+  fixtures/             one mock response per day (20–25 Oct)
+```
+
 ## Robustness
 
 - **Empty results:** a day with no tweets is `empty`, not an error.
