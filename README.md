@@ -21,6 +21,8 @@ python -m pipeline.cli --start 2026-10-20 --end 2026-10-25 --mode reprocess   # 
 python -m pytest -v
 ```
 
+Copy each command without its `# …` comment: zsh (the macOS default shell) doesn't treat it as a comment when pasted.
+
 Days are UTC and both included. Logs go to the console and `logs/<run_id>.log`.
 
 ## Robustness
