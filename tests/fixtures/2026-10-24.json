@@ -1,0 +1,44 @@
+{
+  "data": [
+    {
+      "id": "1849005000000000001",
+      "text": "Queue at the Potsdamer Platz charger again #ChargeNow",
+      "created_at": "2026-10-24T09:10:00.000Z",
+      "author_id": "4400000001",
+      "edit_history_tweet_ids": ["1849005000000000001"],
+      "entities": {
+        "hashtags": [{"start": 43, "end": 53, "tag": "ChargeNow"}]
+      }
+    },
+    {
+      "id": "1849005000000000002",
+      "text": "@ev_fan same here, it worked after a restart #ChargeNow",
+      "created_at": "2026-10-24T11:30:00.000Z",
+      "author_id": "4400000002",
+      "edit_history_tweet_ids": ["1849005000000000002"],
+      "entities": {
+        "hashtags": [{"start": 45, "end": 55, "tag": "ChargeNow"}]
+      },
+      "referenced_tweets": [{"type": "replied_to", "id": "1849001000000000003"}]
+    },
+    {
+      "id": "1849005000000000003",
+      "text": "Charging now, coffee while I wait",
+      "created_at": "2026-10-24T18:00:00.000Z",
+      "author_id": "4400000002",
+      "edit_history_tweet_ids": ["1849005000000000003"]
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "id": "4400000002",
+        "name": "Lena",
+        "username": "lena_hh",
+        "location": "Hamburg",
+        "public_metrics": {"followers_count": 233, "following_count": 180, "tweet_count": 1290, "listed_count": 1}
+      }
+    ]
+  },
+  "meta": {"newest_id": "1849005000000000003", "oldest_id": "1849005000000000001", "result_count": 3}
+}

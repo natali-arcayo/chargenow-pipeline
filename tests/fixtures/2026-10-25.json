@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "id": "1849006000000000001",
+      "text": "Missing timestamp #ChargeNow",
+      "author_id": "4400000002",
+      "edit_history_tweet_ids": ["1849006000000000001"],
+      "entities": {
+        "hashtags": [{"start": 18, "end": 28, "tag": "ChargeNow"}]
+      }
+    }
+  ],
+  "includes": {
+    "users": [
+      {
+        "id": "4400000002",
+        "name": "Lena",
+        "username": "lena_hh",
+        "location": "Hamburg",
+        "public_metrics": {"followers_count": 233, "following_count": 180, "tweet_count": 1290, "listed_count": 1}
+      }
+    ]
+  },
+  "meta": {"newest_id": "1849006000000000001", "oldest_id": "1849006000000000001", "result_count": 1}
+}
